@@ -1,0 +1,33 @@
+{% extends 'flatpages/default.html' %}
+
+{% load custom_filters %}
+
+{% block title %}
+All News
+{% endblock title %}
+
+{% block content %}
+    <h1>All News</h1>
+    <h3>Total news number: {{ news_list|length }}</h3>
+    <hr>
+    {% if news_list %}
+        <table>
+            <tr>
+                <td>Headline</td>
+                <td>Publication Date</td>
+                <td>Preview</td>
+            </tr>
+
+            {% for n in news_list %}
+            <tr>
+                <td>{{ n.name|censor }}</td>
+                <td>{{ n.upload_date|date:'d M Y' }}</td>
+                <td>{{ n.text|censor|truncatewords:20 }}</td>
+            </tr>
+            {% endfor %}
+
+        </table>
+    {% else %}
+        <h2>It seems that nothing really happens in the world (finally)</h2>
+    {% endif %}
+{% endblock content %}
